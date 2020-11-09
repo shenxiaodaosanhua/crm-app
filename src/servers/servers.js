@@ -1,6 +1,5 @@
 /* eslint-disable import/prefer-default-export */
 import httpRequest from "./http"
-import Taro from '@tarojs/taro'
 
 //获取工单列表
 export const getWorksData = () => {
@@ -9,17 +8,17 @@ export const getWorksData = () => {
 
 //code登录
 export const getToken = (code) => {
-  return httpRequest.get('/oauth/wechat/code', code)
+  return httpRequest.get('/oauth/user/wechat/code', code)
 }
 
 //登录
 export const login = (data) => {
-  return httpRequest.post('/user/login', data)
+  return httpRequest.post('/oauth/user/login', data)
 }
 
 //绑定微信
 export const bindUserWechat = (data) => {
-  return httpRequest.post('/oauth/wechat/user/bind', data)
+  return httpRequest.post('/oauth/user/wechat/bind', data)
 }
 
 //获取详情
