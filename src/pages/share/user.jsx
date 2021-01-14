@@ -5,13 +5,6 @@ import {
   Image,
 } from "@tarojs/components"
 import {
-  AtList,
-  AtListItem,
-  AtDivider,
-  AtModal,
-} from "taro-ui"
-import {
-  bindUserWechat,
   getUserQr,
 } from "../../servers/servers"
 import Footer from "../../components/footer"
@@ -34,14 +27,15 @@ export default class Member extends React.Component {
         duration: 3000,
       })
     })
-    
+
   }
 
   render() {
     return (
       <View className='warp'>
-        <Image 
-            src={this.state.memberImage}
+        <Image
+          style='width: 100px;height: 100px;'
+          src={this.state.memberImage}
         />
         <Footer />
       </View>

@@ -3,16 +3,20 @@ import Taro from '@tarojs/taro'
 import {
   View,
   Image,
+  Button,
 } from "@tarojs/components"
 import {
   AtList,
   AtListItem,
   AtDivider,
   AtModal,
+  AtModalHeader,
+  AtModalContent,
+  AtModalAction,
 } from "taro-ui"
 import {
   bindUserWechat,
-  getMemberQr,
+  getMemberQr, getUserQr,
 } from "../../servers/servers"
 import Footer from "../../components/footer"
 import './index.less'
@@ -20,8 +24,8 @@ import './index.less'
 export default class My extends React.Component {
 
   state = {
-    isMemberOpened: false,
-    memberImage: ""
+    isOpened: false,
+    imageUrl: ""
   }
 
   loginOut() {
@@ -36,7 +40,7 @@ export default class My extends React.Component {
       success: function(result) {
         bindUserWechat({
           code: result.code
-        }).then(rs => {
+        }).then(() => {
           Taro.showToast({
             title: '绑定成功',
             icon: 'none',
@@ -54,14 +58,39 @@ export default class My extends React.Component {
   }
 
   memberOpened() {
-    Taro.navigateTo({
-      url: '/pages/share/member'
+    getMemberQr().then(result => {
+      this.setState({
+        isOpened: true,
+        imageUrl: result.data.url,
+      })
+    }).catch(error => {
+      Taro.showToast({
+        title: error.data.message,
+        icon: 'none',
+        duration: 3000,
+      })
     })
   }
 
   userOpened() {
-    Taro.navigateTo({
-      url: '/pages/share/user'
+    getUserQr().then(result => {
+      this.setState({
+        isOpened: true,
+        imageUrl: result.data.url,
+      })
+    }).catch(error => {
+      Taro.showToast({
+        title: error.data.message,
+        icon: 'none',
+        duration: 3000,
+      })
+    })
+  }
+
+  closeShare() {
+    this.setState({
+      isOpened: false,
+      imageUrl: '',
     })
   }
 
@@ -108,6 +137,23 @@ export default class My extends React.Component {
           />
         </AtList>
         <Footer />
+        <AtModal
+          isOpened={this.state.isOpened}
+        >
+          <AtModalContent>
+            <View className='at-row at-row__justify--center'>
+              <Image
+                style='width: 180px;height: 180px;'
+                src={this.state.imageUrl}
+              />
+            </View>
+          </AtModalContent>
+          <AtModalAction>
+            <Button
+              onClick={this.closeShare.bind(this)}
+            >关闭</Button>
+          </AtModalAction>
+        </AtModal>
       </View>
     )
   }
