@@ -1,9 +1,6 @@
 import React from "react"
 import Taro from '@tarojs/taro'
 import {
-  AtButton,
-  AtForm,
-  AtInput,
   AtDivider,
 } from 'taro-ui'
 import {

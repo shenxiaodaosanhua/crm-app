@@ -16,6 +16,16 @@ export const login = (data) => {
   return httpRequest.post('/oauth/user/login', data)
 }
 
+//注册
+export const register = (data) => {
+  return httpRequest.post('/oauth/user/register', data)
+}
+
+//发送手机验证吗
+export const sendMobileCode = (data) => {
+  return httpRequest.post('/oauth/member/sms-code', data);
+}
+
 //绑定微信
 export const bindUserWechat = (data) => {
   return httpRequest.post('/oauth/user/wechat/bind', data)

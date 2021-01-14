@@ -12,6 +12,7 @@ export default {
     'pages/my/index',
     'pages/share/member',
     'pages/share/user',
+    'pages/register/index',
   ],
   window: {
     backgroundTextStyle: 'light',
