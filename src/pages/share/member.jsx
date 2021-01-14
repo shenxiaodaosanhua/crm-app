@@ -41,7 +41,6 @@ export default class Member extends React.Component {
     return (
       <View className='warp'>
         <Image 
-            // style='width: 300px;height: 100px;'
             src={this.state.memberImage}
         />
         <Footer />
