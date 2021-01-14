@@ -54,3 +54,8 @@ export const getUserNames = () => {
 export const assign = (data) => {
   return httpRequest.put('/work-action/assign', data)
 }
+
+//获取分享客户二维码
+export const getMemberQr = () => {
+  return httpRequest.get('/my/qrcode')
+}

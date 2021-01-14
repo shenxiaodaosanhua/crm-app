@@ -10,6 +10,7 @@ export default {
     'pages/fulfill/index',
     'pages/assign/index',
     'pages/my/index',
+    'pages/share/member',
   ],
   window: {
     backgroundTextStyle: 'light',
