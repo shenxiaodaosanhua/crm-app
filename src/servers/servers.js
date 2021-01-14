@@ -57,5 +57,9 @@ export const assign = (data) => {
 
 //获取分享客户二维码
 export const getMemberQr = () => {
-  return httpRequest.get('/my/qrcode')
+  return httpRequest.get('/my/member-qrcode')
+}
+//获取发展小伙伴二维码
+export const getUserQr = () => {
+  return httpRequest.get('/my/user-qrcode')
 }

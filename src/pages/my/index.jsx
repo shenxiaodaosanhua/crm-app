@@ -59,6 +59,12 @@ export default class My extends React.Component {
     })
   }
 
+  userOpened() {
+    Taro.navigateTo({
+      url: '/pages/share/user'
+    })
+  }
+
   render() {
     return (
       <View className='warp'>
@@ -87,6 +93,7 @@ export default class My extends React.Component {
           <AtListItem
             title='发展小伙伴'
             arrow='right'
+            onClick={this.userOpened.bind(this)}
           />
           <AtDivider content='用户' />
           <AtListItem

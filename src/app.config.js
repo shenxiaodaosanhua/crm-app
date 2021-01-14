@@ -11,6 +11,7 @@ export default {
     'pages/assign/index',
     'pages/my/index',
     'pages/share/member',
+    'pages/share/user',
   ],
   window: {
     backgroundTextStyle: 'light',
