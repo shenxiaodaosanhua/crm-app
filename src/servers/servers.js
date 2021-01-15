@@ -73,3 +73,18 @@ export const getMemberQr = () => {
 export const getUserQr = () => {
   return httpRequest.get('/my/user-qrcode')
 }
+
+//获取我的信息
+export const getMy = () => {
+  return httpRequest.get('/my');
+}
+
+//获取我的分销成员数量
+export const getMyGroupCount = () => {
+  return httpRequest.get('/my/users-count')
+}
+
+//我的分销成员列表
+export const getMyGroupUsers = (data) => {
+  return httpRequest.get('/my/users', data)
+}

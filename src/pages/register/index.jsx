@@ -13,9 +13,10 @@ export default class Register extends React.Component {
     wait: 59,
     mobile: '',
     userId: 0,
+    name: '',
   }
 
-  componentDidMount () {
+  componentDidMount() {
     let params = getCurrentInstance().router.params
     if ((params.user_id) && (params.user_id > 0)) {
       Taro.setStorageSync('user_id', params.user_id);
@@ -31,8 +32,16 @@ export default class Register extends React.Component {
    * @returns {boolean}
    */
   onSubmit = result => {
+    if (!result.detail.value.name) {
+      Taro.showToast({
+        title: '请输入名字',
+        icon: 'none',
+        duration: 2000,
+      })
+      return false
+    }
 
-    if (! result.detail.value.mobile) {
+    if (!result.detail.value.mobile) {
       Taro.showToast({
         title: '请输入手机号码',
         icon: 'none',
@@ -41,7 +50,7 @@ export default class Register extends React.Component {
       return false
     }
 
-    if (! result.detail.value.password) {
+    if (!result.detail.value.password) {
       Taro.showToast({
         title: '请输入密码',
         icon: 'none',
@@ -50,7 +59,7 @@ export default class Register extends React.Component {
       return false
     }
 
-    if (! result.detail.value.code) {
+    if (!result.detail.value.code) {
       Taro.showToast({
         title: '请输入手机验证码',
         icon: 'none',
@@ -66,6 +75,7 @@ export default class Register extends React.Component {
       mobile: result.detail.value.mobile,
       password: result.detail.value.password,
       code: result.detail.value.code,
+      name: result.detail.value.name,
       "user_id": this.state.userId,
     }
 
@@ -90,7 +100,7 @@ export default class Register extends React.Component {
    * @returns {boolean}
    */
   sendCode = () => {
-    if (! this.state.mobile) {
+    if (!this.state.mobile) {
       Taro.showToast({
         title: '请输入手机验证码',
         icon: 'none',
@@ -163,6 +173,14 @@ export default class Register extends React.Component {
         >
           <View className='input-block'>
             <Input
+              type='text'
+              name='name'
+              placeholder='请输入名字'
+              className='input'
+            />
+          </View>
+          <View className='input-block'>
+            <Input
               type='number'
               name='mobile'
               placeholder='请输入手机号码'
@@ -197,7 +215,7 @@ export default class Register extends React.Component {
             size='default'
             formType='submit'
             className='button-submit'
-          >登录</Button>
+          >注册</Button>
         </Form>
       </View>
     )

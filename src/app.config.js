@@ -13,6 +13,8 @@ export default {
     'pages/share/member',
     'pages/share/user',
     'pages/register/index',
+    'pages/group/count',
+    'pages/group/two',
   ],
   window: {
     backgroundTextStyle: 'light',

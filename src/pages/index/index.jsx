@@ -1,8 +1,12 @@
 import React, {
   Component,
 } from 'react'
+import Taro from '@tarojs/taro'
 import { View } from '@tarojs/components'
-import {getWorksData} from '../../servers/servers'
+import {
+  getWorksData,
+  getMy,
+} from '../../servers/servers'
 import Work from '../../components/work'
 import Footer from '../../components/footer'
 import './index.less'
@@ -22,7 +26,12 @@ export default class Index extends Component {
       console.log(error)
     })
 
-
+    getMy().then(result => {
+      console.log(result.data)
+      Taro.setStorageSync('my', result.data)
+    }).catch(error => {
+      console.log(error)
+    })
   }
 
 

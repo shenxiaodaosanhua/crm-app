@@ -10,7 +10,6 @@ import {
   AtListItem,
   AtDivider,
   AtModal,
-  AtModalHeader,
   AtModalContent,
   AtModalAction,
 } from "taro-ui"
@@ -25,7 +24,15 @@ export default class My extends React.Component {
 
   state = {
     isOpened: false,
-    imageUrl: ""
+    imageUrl: "",
+    my: {},
+  }
+
+  componentWillMount() {
+    let user = Taro.getStorageSync('my')
+    this.setState({
+      my: user,
+    })
   }
 
   loginOut() {
@@ -94,9 +101,22 @@ export default class My extends React.Component {
     })
   }
 
+  myUserGroup() {
+    Taro.navigateTo({
+      url: '/pages/group/count',
+    })
+  }
+
   render() {
     return (
       <View className='warp'>
+        <View className='at-row at-row__justify--center'>
+          <View
+            className='at-col-2'
+          >
+            {this.state.my.name}
+          </View>
+        </View>
         <AtList
           hasBorder={false}
         >
@@ -118,18 +138,34 @@ export default class My extends React.Component {
           <AtListItem
             title='我的小伙伴'
             arrow='right'
+            onClick={this.myUserGroup.bind(this)}
           />
-          <AtListItem
-            title='发展小伙伴'
-            arrow='right'
-            onClick={this.userOpened.bind(this)}
-          />
+          {
+            this.state.my && (this.state.my.level < 3) ? (
+              <AtListItem
+                title='发展小伙伴'
+                arrow='right'
+                onClick={this.userOpened.bind(this)}
+              />
+            ) : ""
+          }
+
           <AtDivider content='用户' />
-          <AtListItem
-            title='登陆绑定'
-            arrow='right'
-            onClick={this.bindWechat.bind(this)}
-          />
+          {
+            this.state.my && this.state.my.is_bind ? (
+              <AtListItem
+                title='登陆绑定'
+                extraText='已绑定'
+                disabled
+              />
+            ) : (
+              <AtListItem
+                title='登陆绑定'
+                arrow='right'
+                onClick={this.bindWechat.bind(this)}
+              />
+            )
+          }
           <AtListItem
             title='退出'
             arrow='right'
