@@ -65,12 +65,17 @@ export default class My extends React.Component {
   }
 
   memberOpened() {
+    Taro.showLoading({
+      title: '加载中...'
+    })
     getMemberQr().then(result => {
       this.setState({
         isOpened: true,
         imageUrl: result.data.url,
       })
+      Taro.hideLoading()
     }).catch(error => {
+      Taro.hideLoading()
       Taro.showToast({
         title: error.data.message,
         icon: 'none',
@@ -80,12 +85,17 @@ export default class My extends React.Component {
   }
 
   userOpened() {
+    Taro.showLoading({
+      title: '加载中...'
+    })
     getUserQr().then(result => {
       this.setState({
         isOpened: true,
         imageUrl: result.data.url,
       })
+      Taro.hideLoading()
     }).catch(error => {
+      Taro.hideLoading()
       Taro.showToast({
         title: error.data.message,
         icon: 'none',
@@ -152,7 +162,7 @@ export default class My extends React.Component {
 
           <AtDivider content='用户' />
           {
-            this.state.my && this.state.my.is_bind ? (
+            this.state.my && (this.state.my.is_bind == 1) ? (
               <AtListItem
                 title='登陆绑定'
                 extraText='已绑定'
