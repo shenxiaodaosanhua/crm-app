@@ -93,3 +93,13 @@ export const getMyGroupUsers = (data) => {
 export const getMyBalanceLog = () => {
   return httpRequest.get('/my/balance-log')
 }
+
+//分享商品列表
+export const getProduct = () => {
+  return httpRequest.get('/product')
+}
+
+//获取商品详情
+export const getProductInfo = (id) => {
+  return httpRequest.get('/product/' + id)
+}

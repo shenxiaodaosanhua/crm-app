@@ -51,6 +51,12 @@ export default class Businesss extends React.Component {
     })
   }
 
+  shareProduct() {
+    Taro.navigateTo({
+      url: '/pages/share/product',
+    })
+  }
+
   render() {
     return (
       <AtList
@@ -63,6 +69,11 @@ export default class Businesss extends React.Component {
         />
         <AtListItem
           title='分享赚钱'
+          arrow='right'
+          onClick={this.shareProduct.bind(this)}
+        />
+        <AtListItem
+          title='发展客户'
           arrow='right'
           onClick={this.memberOpened.bind(this)}
         />

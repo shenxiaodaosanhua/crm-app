@@ -16,6 +16,8 @@ export default {
     'pages/group/count',
     'pages/group/two',
     'pages/balance/index',
+    'pages/product/info',
+    'pages/share/product',
   ],
   window: {
     backgroundTextStyle: 'light',
