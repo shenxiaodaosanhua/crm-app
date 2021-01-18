@@ -88,3 +88,8 @@ export const getMyGroupCount = () => {
 export const getMyGroupUsers = (data) => {
   return httpRequest.get('/my/users', data)
 }
+
+//我的账单流水
+export const getMyBalanceLog = () => {
+  return httpRequest.get('/my/balance-log')
+}

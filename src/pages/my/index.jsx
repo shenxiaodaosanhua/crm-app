@@ -4,27 +4,17 @@ import {
   View,
   Image,
   Button,
+  Text,
 } from "@tarojs/components"
-import {
-  AtList,
-  AtListItem,
-  AtDivider,
-  AtModal,
-  AtModalContent,
-  AtModalAction,
-} from "taro-ui"
-import {
-  bindUserWechat,
-  getMemberQr, getUserQr,
-} from "../../servers/servers"
 import Footer from "../../components/footer"
+import User from '../../components/my/user'
+import Business from '../../components/my/business'
+import Wechat from '../../components/my/wechat'
 import './index.less'
 
 export default class My extends React.Component {
 
   state = {
-    isOpened: false,
-    imageUrl: "",
     my: {},
   }
 
@@ -35,171 +25,36 @@ export default class My extends React.Component {
     })
   }
 
-  loginOut() {
-    Taro.setStorageSync('Authorization', '')
-    Taro.redirectTo({
-      url: '/pages/auth/login'
-    })
-  }
-
-  bindWechat() {
-    Taro.login({
-      success: function(result) {
-        bindUserWechat({
-          code: result.code
-        }).then(() => {
-          Taro.showToast({
-            title: '绑定成功',
-            icon: 'none',
-            duration: 3000,
-          })
-        }).catch(error => {
-          Taro.showToast({
-            title: error.data.message,
-            icon: 'none',
-            duration: 3000,
-          })
-        })
-      }
-    })
-  }
-
-  memberOpened() {
-    Taro.showLoading({
-      title: '加载中...'
-    })
-    getMemberQr().then(result => {
-      this.setState({
-        isOpened: true,
-        imageUrl: result.data.url,
-      })
-      Taro.hideLoading()
-    }).catch(error => {
-      Taro.hideLoading()
-      Taro.showToast({
-        title: error.data.message,
-        icon: 'none',
-        duration: 3000,
-      })
-    })
-  }
-
-  userOpened() {
-    Taro.showLoading({
-      title: '加载中...'
-    })
-    getUserQr().then(result => {
-      this.setState({
-        isOpened: true,
-        imageUrl: result.data.url,
-      })
-      Taro.hideLoading()
-    }).catch(error => {
-      Taro.hideLoading()
-      Taro.showToast({
-        title: error.data.message,
-        icon: 'none',
-        duration: 3000,
-      })
-    })
-  }
-
-  closeShare() {
-    this.setState({
-      isOpened: false,
-      imageUrl: '',
-    })
-  }
-
-  myUserGroup() {
-    Taro.navigateTo({
-      url: '/pages/group/count',
-    })
-  }
-
   render() {
+    let my = this.state.my
+
     return (
       <View className='warp'>
         <View className='at-row at-row__justify--center'>
-          <View
-            className='at-col-2'
-          >
+          <View>
             {this.state.my.name}
           </View>
         </View>
-        <AtList
-          hasBorder={false}
-        >
-          <AtDivider content='业务' />
-          <AtListItem
-            title='我的业绩'
-            arrow='right'
-          />
-          <AtListItem
-            title='分享赚钱'
-            arrow='right'
-            onClick={this.memberOpened.bind(this)}
-          />
-          <AtListItem
-            title='促成交易'
-            arrow='right'
-          />
-          <AtDivider content='员工' />
-          <AtListItem
-            title='我的小伙伴'
-            arrow='right'
-            onClick={this.myUserGroup.bind(this)}
-          />
-          {
-            this.state.my && (this.state.my.level < 3) ? (
-              <AtListItem
-                title='发展小伙伴'
-                arrow='right'
-                onClick={this.userOpened.bind(this)}
-              />
-            ) : ""
-          }
+        <View className='at-row at-row__justify--center'>
+          <View className='at-article__p'>
+            当前余额:<Text className='amount'>{my.balance}</Text>
+          </View>
+          <View className='at-article__p'>
+            冻结金额:{my.freeze_amount}
+          </View>
+        </View>
 
-          <AtDivider content='用户' />
-          {
-            this.state.my && (this.state.my.is_bind == 1) ? (
-              <AtListItem
-                title='登陆绑定'
-                extraText='已绑定'
-                disabled
-              />
-            ) : (
-              <AtListItem
-                title='登陆绑定'
-                arrow='right'
-                onClick={this.bindWechat.bind(this)}
-              />
-            )
-          }
-          <AtListItem
-            title='退出'
-            arrow='right'
-            onClick={this.loginOut.bind(this)}
-          />
-        </AtList>
+        <Business my={my} />
+        {
+          my.level < 3 ? (
+            <User my={my} />
+          ) : ''
+        }
+
+
+        <Wechat my={my} />
         <Footer />
-        <AtModal
-          isOpened={this.state.isOpened}
-        >
-          <AtModalContent>
-            <View className='at-row at-row__justify--center'>
-              <Image
-                style='width: 180px;height: 180px;'
-                src={this.state.imageUrl}
-              />
-            </View>
-          </AtModalContent>
-          <AtModalAction>
-            <Button
-              onClick={this.closeShare.bind(this)}
-            >关闭</Button>
-          </AtModalAction>
-        </AtModal>
+
       </View>
     )
   }

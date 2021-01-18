@@ -15,6 +15,7 @@ export default {
     'pages/register/index',
     'pages/group/count',
     'pages/group/two',
+    'pages/balance/index',
   ],
   window: {
     backgroundTextStyle: 'light',
