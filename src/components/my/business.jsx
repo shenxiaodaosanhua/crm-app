@@ -72,11 +72,11 @@ export default class Businesss extends React.Component {
           arrow='right'
           onClick={this.shareProduct.bind(this)}
         />
-        <AtListItem
-          title='发展客户'
-          arrow='right'
-          onClick={this.memberOpened.bind(this)}
-        />
+        {/*<AtListItem*/}
+        {/*  title='发展客户'*/}
+        {/*  arrow='right'*/}
+        {/*  onClick={this.memberOpened.bind(this)}*/}
+        {/*/>*/}
         <AtListItem
           title='促成交易'
           arrow='right'
@@ -90,6 +90,7 @@ export default class Businesss extends React.Component {
               <Image
                 style='width: 180px;height: 180px;'
                 src={this.state.imageUrl}
+                showMenuByLongpress='true'
               />
             </View>
           </AtModalContent>

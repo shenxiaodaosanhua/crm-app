@@ -83,6 +83,7 @@ export default class User extends React.Component {
               <Image
                 style='width: 180px;height: 180px;'
                 src={this.state.imageUrl}
+                showMenuByLongpress='true'
               />
             </View>
           </AtModalContent>

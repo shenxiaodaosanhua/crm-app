@@ -103,3 +103,8 @@ export const getProduct = () => {
 export const getProductInfo = (id) => {
   return httpRequest.get('/product/' + id)
 }
+
+//获取商品分享二维码
+export const getProductShareQrCode = (id) => {
+  return httpRequest.get('/product/share/' + id)
+}

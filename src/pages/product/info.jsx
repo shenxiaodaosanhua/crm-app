@@ -9,9 +9,13 @@ import {
 import {
   AtTag,
   AtButton,
+  AtModalContent,
+  AtModalAction,
+  AtModal,
 } from 'taro-ui'
 import {
   getProductInfo,
+  getProductShareQrCode,
 } from "../../servers/servers"
 import { getCurrentInstance } from '@tarojs/taro'
 import Footer from "../../components/footer"
@@ -22,6 +26,7 @@ export default class Info extends React.Component {
   state = {
     product: {},
     loading: false,
+    imageUrl: '',
   }
 
   componentWillMount() {
@@ -39,7 +44,17 @@ export default class Info extends React.Component {
     this.setState({
       loading: true,
     })
+    getProductShareQrCode(id).then(result => {
+      this.setState({
+        imageUrl: result.data.url
+      })
+    })
+  }
 
+  closeShare() {
+    this.setState({
+      loading: false,
+    })
   }
 
   render() {
@@ -87,6 +102,24 @@ export default class Info extends React.Component {
           >分享</AtButton>
         </View>
         <Footer />
+        <AtModal
+          isOpened={this.state.loading}
+        >
+          <AtModalContent>
+            <View className='at-row at-row__justify--center'>
+              <Image
+                style='width: 180px;height: 180px;'
+                src={this.state.imageUrl}
+                showMenuByLongpress='true'
+              />
+            </View>
+          </AtModalContent>
+          <AtModalAction>
+            <Button
+              onClick={this.closeShare.bind(this)}
+            >关闭</Button>
+          </AtModalAction>
+        </AtModal>
       </View>
     )
   }
