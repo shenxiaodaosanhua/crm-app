@@ -7,7 +7,8 @@ import {
   Button,
 } from "@tarojs/components"
 import {
-  AtTag
+  AtTag,
+  AtButton,
 } from 'taro-ui'
 import {
   getProductInfo,
@@ -20,6 +21,7 @@ export default class Info extends React.Component {
 
   state = {
     product: {},
+    loading: false,
   }
 
   componentWillMount() {
@@ -33,8 +35,16 @@ export default class Info extends React.Component {
     })
   }
 
+  shareProduct(id) {
+    this.setState({
+      loading: true,
+    })
+
+  }
+
   render() {
-    let product = this.state.product
+    let product = this.state.product,
+      isLoading = this.state.loading
     return (
       <View className='warp'>
         <View className='info'>
@@ -68,13 +78,13 @@ export default class Info extends React.Component {
               <Text className='red-color'>{product.share_price}</Text>
             </Text>
           </View>
-          <Button
-            className='button'
-            openType='share'
+          <AtButton
             type='primary'
-          >
-            分享
-          </Button>
+            className='button'
+            disabled={isLoading}
+            loading={isLoading}
+            onClick={this.shareProduct.bind(this, product.id)}
+          >分享</AtButton>
         </View>
         <Footer />
       </View>

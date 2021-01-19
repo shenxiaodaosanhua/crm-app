@@ -2,6 +2,8 @@ import { useGlobalIconFont } from './components/iconfont/helper'
 
 export default {
   pages: [
+    'pages/share/product',
+
     'pages/index/index',
     'pages/auth/login',
     'pages/auth/wechat',
@@ -17,7 +19,6 @@ export default {
     'pages/group/two',
     'pages/balance/index',
     'pages/product/info',
-    'pages/share/product',
   ],
   window: {
     backgroundTextStyle: 'light',
