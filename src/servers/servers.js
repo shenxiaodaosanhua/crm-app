@@ -108,3 +108,8 @@ export const getProductInfo = (id) => {
 export const getProductShareQrCode = (id) => {
   return httpRequest.get('/product/share/' + id)
 }
+
+//促进交易列表
+export const getMyWork = () => {
+  return httpRequest.get('/my/work')
+}

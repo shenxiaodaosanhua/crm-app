@@ -18,6 +18,7 @@ export default {
     'pages/balance/index',
     'pages/product/info',
     'pages/share/product',
+    'pages/my/my-work',
   ],
   window: {
     backgroundTextStyle: 'light',
