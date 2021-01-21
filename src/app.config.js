@@ -2,6 +2,8 @@ import { useGlobalIconFont } from './components/iconfont/helper'
 
 export default {
   pages: [
+    'pages/withdraw/store',
+    'pages/withdraw/index',
     'pages/index/index',
     'pages/auth/login',
     'pages/auth/wechat',

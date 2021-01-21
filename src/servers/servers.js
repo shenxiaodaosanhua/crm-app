@@ -113,3 +113,13 @@ export const getProductShareQrCode = (id) => {
 export const getMyWork = () => {
   return httpRequest.get('/my/work')
 }
+
+//获取提现列表
+export const getWithdrawList = () => {
+  return httpRequest.get('/my/extract')
+}
+
+//提现
+export const postWithdraw = (data) => {
+  return httpRequest.post('/my/extract', data)
+}
