@@ -46,6 +46,12 @@ export default class User extends React.Component {
     })
   }
 
+  withdraw() {
+    Taro.navigateTo({
+      url: '/pages/withdraw/index'
+    })
+  }
+
   render() {
     let my = this.props.my
     return (
@@ -54,13 +60,14 @@ export default class User extends React.Component {
       >
         <AtDivider content='用户' />
         <AtListItem
-          title='账单流水'
+          title='我的收益'
           arrow='right'
           onClick={this.balanceLog.bind(this)}
         />
         <AtListItem
           title='余额提现'
           arrow='right'
+          onClick={this.withdraw.bind(this)}
         />
         {
           my && (my.is_bind == 1) ? (

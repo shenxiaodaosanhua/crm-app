@@ -70,10 +70,6 @@ export default class Businesss extends React.Component {
       >
         <AtDivider content='业务' />
         <AtListItem
-          title='我的业绩'
-          arrow='right'
-        />
-        <AtListItem
           title='分享赚钱'
           arrow='right'
           onClick={this.shareProduct.bind(this)}

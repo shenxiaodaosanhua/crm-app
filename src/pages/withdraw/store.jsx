@@ -13,11 +13,34 @@ import './store.less'
 
 
 export default class Withdraw extends React.Component {
+
   state = {
+    loading: false,
   }
 
   onSubmit = (e) => {
-    console.log(e)
+    this.setState({
+      loading: true,
+    })
+    Taro.showLoading({
+      title: '提交中...',
+    })
+    postWithdraw(e.detail.value).then(() => {
+      Taro.hideLoading()
+      Taro.redirectTo({
+        url: '/pages/withdraw/index',
+      })
+    }).catch(error => {
+      Taro.hideLoading()
+      Taro.showToast({
+        title: error.data.message,
+        icon: 'none',
+        duration: 2000,
+      })
+      this.setState({
+        loading: false,
+      })
+    })
   }
 
   render() {
