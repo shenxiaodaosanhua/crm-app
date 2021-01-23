@@ -32,6 +32,8 @@ export default class Work extends Component {
           <View className='item-content'>称呼:{work.name}</View>
           <View className='item-content'>电话:{work.mobile}</View>
           <View className='item-content'>地址:{work.address}</View>
+          <View className='item-content'>预约时间:{work.reserve_at}</View>
+          <View className='item-content'>完成时间:{work.accept_at}</View>
           <View className='item-content'>产品:{work.product}</View>
           <View className='item-content'>品牌:{work.brand}</View>
           <View className='item-content'>地区:{work.area}</View>

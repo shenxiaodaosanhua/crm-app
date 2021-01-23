@@ -52,6 +52,14 @@ export default class Info extends React.Component {
           <View className='at-col value'>{work.area}</View>
         </View>
         <View className='at-row info-list'>
+          <View className='at-col at-col-3 at-col--auto key'>预约时间:</View>
+          <View className='at-col value'>{work.reserve_at}</View>
+        </View>
+        <View className='at-row info-list'>
+          <View className='at-col at-col-3 at-col--auto key'>完成时间:</View>
+          <View className='at-col value'>{work.accept_at}</View>
+        </View>
+        <View className='at-row info-list'>
           <View className='at-col at-col-3 at-col--auto key'>分类:</View>
           <View className='at-col value'>{work.category}</View>
         </View>
