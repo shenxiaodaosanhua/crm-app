@@ -47,14 +47,14 @@ export default class Count extends React.Component {
         {
           this.state.two > 0 ? (
             <AtListItem
-              title='二级分销'
+              title='二级小伙伴'
               extraText={this.state.two}
               arrow='right'
               onClick={this.toTwo.bind(this)}
             />
           ) : (
             <AtListItem
-              title='二级分销'
+              title='二级小伙伴'
               extraText={this.state.two}
               disabled
             />
@@ -64,14 +64,14 @@ export default class Count extends React.Component {
         {
           this.state.three > 0 ? (
             <AtListItem
-              title='三级分销'
+              title='三级小伙伴'
               extraText={this.state.three}
               arrow='right'
               onClick={this.toThree.bind(this)}
             />
           ) : (
             <AtListItem
-              title='三级分销'
+              title='三级小伙伴'
               extraText={this.state.three}
               disabled
             />

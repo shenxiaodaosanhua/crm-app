@@ -15,6 +15,7 @@ export default {
     'pages/register/index',
     'pages/group/count',
     'pages/group/two',
+    'pages/group/three',
     'pages/balance/index',
     'pages/product/info',
     'pages/share/product',
