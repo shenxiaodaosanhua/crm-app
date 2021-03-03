@@ -13,7 +13,7 @@ export default class Work extends Component {
   }
 
   hrefInfo() {
-    Taro.redirectTo({
+    Taro.navigateTo({
       url: '/pages/info/index?id=' + this.props.item.id
     })
   }
