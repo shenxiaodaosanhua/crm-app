@@ -17,10 +17,17 @@ export default class Info extends React.Component {
   state = {
     work: {},
     actions: [],
+    my: {},
   }
 
   componentDidMount() {
     let params = getCurrentInstance().router.params
+    let user = Taro.getStorageSync('my')
+
+    this.setState({
+      my: user,
+    })
+
     getWorkInfo(params.id).then(result => {
       this.setState({
         work: result.data,
@@ -34,17 +41,30 @@ export default class Info extends React.Component {
   render() {
     let work = this.state.work
     let actions = this.state.actions
+    let my = this.state.my
+
     return (
       <View className='warp'>
         <View className='title'>
           <View className='title-name'>客户信息</View>
         </View>
         <WorkInfo work={work} />
-        <View className='title'>
-          <View className='title-name'>工单信息</View>
-        </View>
-        <Actions actions={actions} />
-        <ActionButton id={work.id} />
+        {
+          my.roles == 0 ? (
+              <View>
+                <View className='title'>
+                  <View className='title-name'>工单信息</View>
+                </View>
+                <Actions actions={actions} />
+              </View>
+          ) : ''
+        }
+        {
+          my.roles == 0 ? (
+            <ActionButton id={work.id} />
+          ) : ''
+        }
+
       </View>
     )
   }
