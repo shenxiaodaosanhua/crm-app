@@ -45,10 +45,48 @@ export default class Info extends React.Component {
       loading: true,
     })
     getProductShareQrCode(id).then(result => {
-      this.setState({
-        imageUrl: result.data.url
+      let _this = this
+      Taro.downloadFile({
+        url: result.data.url,
+        success: function (res) {
+          if (res.statusCode === 200) {
+            console.log(res.tempFilePath)
+            _this.setState({
+              imageUrl: res.tempFilePath
+            })
+          }
+        }
       })
     })
+  }
+
+  saveImage() {
+    Taro.saveImageToPhotosAlbum({
+      filePath: this.state.imageUrl,
+      success: res => {
+        if (res.errMsg == 'saveImageToPhotosAlbum:ok') {
+          Taro.showToast({
+            title: '保存成功',
+            icon: 'success',
+            duration: 3000,
+          })
+        }
+      },
+      fail: () => {
+        Taro.showToast({
+          title: '保存失败',
+          icon: 'none',
+          duration: 3000,
+        })
+      }
+    })
+  }
+
+  shareImage() {
+    Taro.showShareMenu({
+      withShareTicket: true
+    })
+
   }
 
   closeShare() {
@@ -116,8 +154,12 @@ export default class Info extends React.Component {
           </AtModalContent>
           <AtModalAction>
             <Button
-              onClick={this.closeShare.bind(this)}
-            >关闭</Button>
+              onClick={this.saveImage.bind(this)}
+            >保存相册</Button>
+            <Button
+              openType='share'
+              // onClick={this.shareImage.bind(this)}
+            >分享</Button>
           </AtModalAction>
         </AtModal>
       </View>

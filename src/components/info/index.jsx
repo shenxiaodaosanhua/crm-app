@@ -110,6 +110,43 @@ export default class Info extends React.Component {
           </View>
         </View>
         <View className='at-row info-list'>
+          <View className='at-col at-col-3 at-col--auto key'>上网密码:</View>
+          <View className='at-col value'>
+            <Text
+              className='copy-text'
+              onClick={this.copyData.bind(this, work.account_password)}
+            >
+              {work.account_password}
+            </Text>
+
+          </View>
+        </View>
+        <View className='at-row info-list'>
+          <View className='at-col at-col-3 at-col--auto key'>IPTV账户:</View>
+          <View className='at-col value'>
+            <Text
+              className='copy-text'
+              onClick={this.copyData.bind(this, work.iptv_username)}
+            >
+              {work.iptv_username}
+            </Text>
+
+          </View>
+        </View>
+        <View className='at-row info-list'>
+          <View className='at-col at-col-3 at-col--auto key'>IPTV密码:</View>
+          <View className='at-col value'>
+            <Text
+              className='copy-text'
+              onClick={this.copyData.bind(this, work.iptv_password)}
+            >
+              {work.iptv_password}
+            </Text>
+
+          </View>
+        </View>
+
+        <View className='at-row info-list'>
           <View className='at-col at-col-3 at-col--auto key'>分光器编码:</View>
           <View className='at-col value'>
             <Text
