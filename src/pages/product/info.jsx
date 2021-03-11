@@ -84,9 +84,24 @@ export default class Info extends React.Component {
 
   shareImage() {
     Taro.showShareMenu({
-      withShareTicket: true
+      withShareTicket: true,
+      success: function (res) {
+        console.log(res)
+      },
+      fail: function (res) {
+        console.log(res)
+      }
     })
 
+  }
+
+  onShareAppMessage() {
+    let product = this.state.product
+    return {
+      title: product.name,
+      path: '',
+      imageUrl: this.state.imageUrl,
+    }
   }
 
   closeShare() {
@@ -155,11 +170,10 @@ export default class Info extends React.Component {
           <AtModalAction>
             <Button
               onClick={this.saveImage.bind(this)}
-            >保存相册</Button>
-            <Button
-              openType='share'
-              // onClick={this.shareImage.bind(this)}
-            >分享</Button>
+            >保存到相册</Button>
+            {/*<Button*/}
+            {/*  openType='share'*/}
+            {/*>分享</Button>*/}
           </AtModalAction>
         </AtModal>
       </View>
