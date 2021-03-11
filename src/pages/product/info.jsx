@@ -41,9 +41,18 @@ export default class Info extends React.Component {
   }
 
   shareProduct(id) {
+    if (! id) {
+      Taro.showToast({
+        title: '分享页面错误',
+        icon: 'none',
+        duration: 3000,
+      })
+    }
+
     this.setState({
       loading: true,
     })
+
     getProductShareQrCode(id).then(result => {
       let _this = this
       Taro.downloadFile({
@@ -66,9 +75,9 @@ export default class Info extends React.Component {
       success: res => {
         if (res.errMsg == 'saveImageToPhotosAlbum:ok') {
           Taro.showToast({
-            title: '保存成功',
+            title: '请分享相册小程序码',
             icon: 'success',
-            duration: 3000,
+            duration: 5000,
           })
         }
       },
@@ -80,28 +89,6 @@ export default class Info extends React.Component {
         })
       }
     })
-  }
-
-  shareImage() {
-    Taro.showShareMenu({
-      withShareTicket: true,
-      success: function (res) {
-        console.log(res)
-      },
-      fail: function (res) {
-        console.log(res)
-      }
-    })
-
-  }
-
-  onShareAppMessage() {
-    let product = this.state.product
-    return {
-      title: product.name,
-      path: '',
-      imageUrl: this.state.imageUrl,
-    }
   }
 
   closeShare() {
