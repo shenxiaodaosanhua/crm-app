@@ -4,7 +4,26 @@ import {AtTabBar} from "taro-ui"
 
 export default class Footer extends React.Component {
 
+  state = {
+    user: null,
+  }
+
+  componentDidMount() {
+    let member = Taro.getStorageSync('my')
+    this.setState({
+      user: member
+    })
+  }
+
   handleClick (value) {
+    let member = this.state.user
+    if (member.roles === 1) {
+      Taro.redirectTo({
+        url: '/pages/my/index'
+      })
+      return
+    }
+
     Taro.setStorageSync('menuCurrent', value)
 
     switch (value) {
@@ -27,7 +46,12 @@ export default class Footer extends React.Component {
 
   render() {
     let menu = Taro.getStorageSync('menu'),
-      menuCurrent = Taro.getStorageSync('menuCurrent')
+      menuCurrent = Taro.getStorageSync('menuCurrent'),
+      user = this.state.user
+
+    if (user && user.roles === 1) {
+      return ''
+    }
 
     return (
       <AtTabBar
@@ -37,5 +61,7 @@ export default class Footer extends React.Component {
         current={menuCurrent}
       />
     )
+
+
   }
 }

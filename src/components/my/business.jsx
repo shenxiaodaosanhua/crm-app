@@ -14,14 +14,15 @@ import {
   AtModalAction,
 } from "taro-ui"
 import {
-  getMemberQr,
+  getMemberQr, getProductShareQrCode,
 } from "../../servers/servers"
 
 export default class Businesss extends React.Component {
 
   state = {
     isOpened: false,
-    imageUrl: "",
+    loading: false,
+    imageUrl: '',
   }
 
   memberOpened() {
@@ -52,8 +53,45 @@ export default class Businesss extends React.Component {
   }
 
   shareProduct() {
-    Taro.navigateTo({
-      url: '/pages/share/product',
+    getProductShareQrCode().then(result => {
+      let _this = this
+      this.setState({
+        loading: true,
+      })
+
+      Taro.downloadFile({
+        url: result.data.url,
+        success: function (res) {
+          if (res.statusCode === 200) {
+            console.log(res.tempFilePath)
+            _this.setState({
+              imageUrl: res.tempFilePath
+            })
+          }
+        }
+      })
+    })
+  }
+
+  saveImage() {
+    Taro.saveImageToPhotosAlbum({
+      filePath: this.state.imageUrl,
+      success: res => {
+        if (res.errMsg == 'saveImageToPhotosAlbum:ok') {
+          Taro.showToast({
+            title: '请分享相册小程序码',
+            icon: 'success',
+            duration: 5000,
+          })
+        }
+      },
+      fail: () => {
+        Taro.showToast({
+          title: '保存失败',
+          icon: 'none',
+          duration: 3000,
+        })
+      }
     })
   }
 
@@ -65,23 +103,43 @@ export default class Businesss extends React.Component {
 
   render() {
     return (
-      <AtList
-        hasBorder={false}
-      >
-        <AtDivider content='业务' />
-        <AtListItem
-          title='分享赚钱'
-          arrow='right'
-          onClick={this.shareProduct.bind(this)}
-        />
-        <AtListItem
-          title='促成交易'
-          arrow='right'
-          onClick={this.myWork.bind(this)}
-        />
+      <View>
+        <AtList
+          hasBorder={false}
+        >
+          <AtDivider content='业务' />
+          <AtListItem
+            title='分享赚钱'
+            arrow='right'
+            onClick={this.shareProduct.bind(this)}
+          />
+          <AtListItem
+            title='促成交易'
+            arrow='right'
+            onClick={this.myWork.bind(this)}
+          />
 
+          <AtModal
+            isOpened={this.state.isOpened}
+          >
+            <AtModalContent>
+              <View className='at-row at-row__justify--center'>
+                <Image
+                  style='width: 180px;height: 180px;'
+                  src={this.state.imageUrl}
+                  showMenuByLongpress='true'
+                />
+              </View>
+            </AtModalContent>
+            <AtModalAction>
+              <Button
+                onClick={this.closeShare.bind(this)}
+              >关闭</Button>
+            </AtModalAction>
+          </AtModal>
+        </AtList>
         <AtModal
-          isOpened={this.state.isOpened}
+          isOpened={this.state.loading}
         >
           <AtModalContent>
             <View className='at-row at-row__justify--center'>
@@ -94,11 +152,11 @@ export default class Businesss extends React.Component {
           </AtModalContent>
           <AtModalAction>
             <Button
-              onClick={this.closeShare.bind(this)}
-            >关闭</Button>
+              onClick={this.saveImage.bind(this)}
+            >保存到相册</Button>
           </AtModalAction>
         </AtModal>
-      </AtList>
+      </View>
     )
   }
 }

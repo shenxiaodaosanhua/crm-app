@@ -58,7 +58,6 @@ export default class User extends React.Component {
   }
 
   render() {
-    let my = this.props.my
     return (
       <AtList
         hasBorder={false}

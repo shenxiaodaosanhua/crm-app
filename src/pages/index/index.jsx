@@ -15,9 +15,10 @@ export default class Index extends Component {
 
   state = {
     data: [],
+    user: null,
   }
 
-  componentWillMount () {
+  componentDidMount () {
     getWorksData().then(result => {
       this.setState({
         data: result.data
@@ -27,8 +28,11 @@ export default class Index extends Component {
     })
 
     getMy().then(result => {
-      console.log(result.data)
-      Taro.setStorageSync('my', result.data)
+      let member = result.data
+      Taro.setStorageSync('my', member)
+      this.setState({
+        user: member
+      })
     }).catch(error => {
       console.log(error)
     })
@@ -38,6 +42,12 @@ export default class Index extends Component {
 
   render () {
     let works = this.state.data
+    let user = this.state.user
+    if (user && user.roles === 1) {
+      Taro.redirectTo({
+        url: '/pages/my/index'
+      })
+    }
 
     return (
       <View className='warp'>

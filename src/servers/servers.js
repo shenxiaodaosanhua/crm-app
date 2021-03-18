@@ -105,8 +105,8 @@ export const getProductInfo = (id) => {
 }
 
 //获取商品分享二维码
-export const getProductShareQrCode = (id) => {
-  return httpRequest.get('/product/share/' + id)
+export const getProductShareQrCode = () => {
+  return httpRequest.get('/product/share')
 }
 
 //促进交易列表

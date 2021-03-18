@@ -50,7 +50,7 @@ export default class Info extends React.Component {
         </View>
         <WorkInfo work={work} />
         {
-          my.roles == 0 ? (
+          my.roles === 0 ? (
               <View>
                 <View className='title'>
                   <View className='title-name'>工单信息</View>
@@ -60,7 +60,7 @@ export default class Info extends React.Component {
           ) : ''
         }
         {
-          my.roles == 0 ? (
+          my.roles === 0 ? (
             <ActionButton id={work.id} />
           ) : ''
         }
