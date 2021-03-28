@@ -12,6 +12,28 @@ import {
 export default class User extends React.Component {
 
   bindWechat() {
+    let _this = this
+    Taro.requestSubscribeMessage({
+      tmplIds: [
+        'k8U4_CoBezPMPkA-rPZGP6Xu5LLjbpx4aZwkxdJsuOI',
+        'Q-pqrx5YyIQEDTL3g52nCEG_daK3bIsQ_hUy4bkqgH4',
+      ],
+      success: function () {
+        _this.bindToWechat()
+      },
+      fail: function () {
+        Taro.showToast({
+          title: '订阅失败',
+          icon: 'none',
+          duration: 2000,
+        })
+      }
+    })
+
+
+  }
+
+  bindToWechat() {
     Taro.login({
       success: function(result) {
         bindUserWechat({
