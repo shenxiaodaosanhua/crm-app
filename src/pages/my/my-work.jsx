@@ -6,7 +6,7 @@ import { View } from '@tarojs/components'
 import {
   getMyWork,
 } from '../../servers/servers'
-import Work from '../../components/work'
+import Work from '../../components/user-work'
 import Footer from '../../components/footer'
 import './my-work.less'
 
