@@ -1,3 +1,3 @@
 export default {
-  navigationBarTitleText: '预约时间'
+  navigationBarTitleText: '完成反馈'
 }

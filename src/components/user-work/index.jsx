@@ -13,6 +13,11 @@ export default class UserWork extends Component {
   }
 
   hrefInfo() {
+    let member = Taro.getStorageSync('my')
+    if (member.roles === 1) {
+      return false
+    }
+
     Taro.navigateTo({
       url: '/pages/info/index?id=' + this.props.item.id
     })
