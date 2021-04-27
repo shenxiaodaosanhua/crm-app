@@ -26,6 +26,9 @@ export default class Withdraw extends React.Component {
       title: '提交中...',
     })
     postWithdraw(e.detail.value).then(() => {
+      this.setState({
+        loading: false,
+      })
       Taro.hideLoading()
       Taro.redirectTo({
         url: '/pages/withdraw/index',
