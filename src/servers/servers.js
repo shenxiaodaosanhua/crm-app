@@ -2,8 +2,8 @@
 import httpRequest from "./http"
 
 //获取工单列表
-export const getWorksData = () => {
-  return httpRequest.get('/work')
+export const getWorksData = (data) => {
+  return httpRequest.get('/work', data)
 }
 
 //code登录

@@ -15,13 +15,15 @@ export default class Index extends Component {
 
   state = {
     data: [],
+    meta: null,
     user: null,
   }
 
   componentDidMount () {
     getWorksData().then(result => {
       this.setState({
-        data: result.data
+        data: result.data,
+        meta: result.meta,
       })
     }).catch(error => {
       console.log(error)
@@ -31,7 +33,25 @@ export default class Index extends Component {
       let member = result.data
       Taro.setStorageSync('my', member)
       this.setState({
-        user: member
+        user: member,
+      })
+    }).catch(error => {
+      console.log(error)
+    })
+  }
+
+  onReachBottom() {
+    let meta = this.state.meta
+    if (meta.current_page === meta.last_page) {
+      return;
+    }
+
+    getWorksData({
+      page: (meta.current_page + 1),
+    }).then(result => {
+      this.setState({
+        data: [...result.data, ...result.data],
+        meta: result.meta,
       })
     }).catch(error => {
       console.log(error)

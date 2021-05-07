@@ -44,7 +44,8 @@
     "lodash": "4.17.15",
     "react": "^16.10.0",
     "react-dom": "^16.10.0",
-    "taro-ui": "^3.0.0-alpha.3"
+    "taro-ui": "^3.0.0-alpha.3",
+    "yarn": "^1.22.10"
   },
   "devDependencies": {
     "@babel/core": "^7.8.0",
