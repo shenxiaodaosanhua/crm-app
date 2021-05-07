@@ -45,6 +45,9 @@ export default class Index extends Component {
     if (meta.current_page === meta.last_page) {
       return;
     }
+    Taro.showLoading({
+      title: '加载中...',
+    })
 
     getWorksData({
       page: (meta.current_page + 1),
@@ -53,7 +56,9 @@ export default class Index extends Component {
         data: [...result.data, ...result.data],
         meta: result.meta,
       })
+      Taro.hideLoading()
     }).catch(error => {
+      Taro.hideLoading()
       console.log(error)
     })
   }
