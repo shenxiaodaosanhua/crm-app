@@ -11,15 +11,22 @@ import {
 
 export default class User extends React.Component {
 
-  bindWechat() {
-    let _this = this
+  bindWechatMessage() {
+    let ids = [
+      '5uR9INmpdCZQPMb9TTF-045EEjhIWfOlZVm9BLMpTiI',
+      'k8U4_CoBezPMPkA-rPZGP6Xu5LLjbpx4aZwkxdJsuOI',
+      'Q-pqrx5YyIQEDTL3g52nCEG_daK3bIsQ_hUy4bkqgH4',
+    ]
+
     Taro.requestSubscribeMessage({
-      tmplIds: [
-        'k8U4_CoBezPMPkA-rPZGP6Xu5LLjbpx4aZwkxdJsuOI',
-        'Q-pqrx5YyIQEDTL3g52nCEG_daK3bIsQ_hUy4bkqgH4',
-      ],
-      success: function () {
-        _this.bindToWechat()
+      tmplIds: ids,
+      success: function (result) {
+        console.log(result)
+        Taro.showToast({
+          title: '订阅成功',
+          icon: 'success',
+          duration: 2000,
+        })
       },
       fail: function () {
         Taro.showToast({
@@ -29,13 +36,11 @@ export default class User extends React.Component {
         })
       }
     })
-
-
   }
 
   bindToWechat() {
     Taro.login({
-      success: function(result) {
+      success: function (result) {
         bindUserWechat({
           code: result.code
         }).then(() => {
@@ -64,7 +69,7 @@ export default class User extends React.Component {
 
   balanceLog() {
     Taro.navigateTo({
-      url:'/pages/balance/index',
+      url: '/pages/balance/index',
     })
   }
 
@@ -80,7 +85,7 @@ export default class User extends React.Component {
       <AtList
         hasBorder={false}
       >
-        <AtDivider content='用户' />
+        <AtDivider content='用户'/>
         <AtListItem
           title='我的收益'
           arrow='right'
@@ -102,10 +107,15 @@ export default class User extends React.Component {
             <AtListItem
               title='登陆绑定'
               arrow='right'
-              onClick={this.bindWechat.bind(this)}
+              onClick={this.bindToWechat.bind(this)}
             />
           )
         }
+        <AtListItem
+          title='消息订阅'
+          arrow='right'
+          onClick={this.bindWechatMessage.bind(this)}
+        />
         <AtListItem
           title='退出'
           arrow='right'

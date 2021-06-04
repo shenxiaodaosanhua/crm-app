@@ -15,7 +15,6 @@ export default class Index extends Component {
 
   state = {
     data: [],
-    meta: null,
     user: null,
   }
 
@@ -23,7 +22,6 @@ export default class Index extends Component {
     getWorksData().then(result => {
       this.setState({
         data: result.data,
-        meta: result.meta,
       })
     }).catch(error => {
       console.log(error)
@@ -36,29 +34,6 @@ export default class Index extends Component {
         user: member,
       })
     }).catch(error => {
-      console.log(error)
-    })
-  }
-
-  onReachBottom() {
-    let meta = this.state.meta
-    if (meta.current_page === meta.last_page) {
-      return;
-    }
-    Taro.showLoading({
-      title: '加载中...',
-    })
-
-    getWorksData({
-      page: (meta.current_page + 1),
-    }).then(result => {
-      this.setState({
-        data: [...result.data, ...result.data],
-        meta: result.meta,
-      })
-      Taro.hideLoading()
-    }).catch(error => {
-      Taro.hideLoading()
       console.log(error)
     })
   }
@@ -77,7 +52,7 @@ export default class Index extends Component {
     return (
       <View className='warp'>
         {
-          works.map(item => <Work item={item} />)
+          works.map((item, index) => <Work item={item} itemId={index} />)
         }
         <Footer />
       </View>

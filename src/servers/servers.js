@@ -56,6 +56,10 @@ export const fulfill = (data) => {
   return httpRequest.put('/work-action/fulfill', data)
 }
 
+export const failure = (data) => {
+  return httpRequest.put('/work-action/failure', data)
+}
+
 //用户列表
 export const getUserNames = () => {
   return httpRequest.get('/user/names')

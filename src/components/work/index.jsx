@@ -19,7 +19,8 @@ export default class Work extends Component {
   }
 
   render() {
-    let work = this.props.item
+    let work = this.props.item,
+      index = (this.props.itemId) + 1
 
     return (
       <View className='item'>
@@ -29,6 +30,7 @@ export default class Work extends Component {
           title={work.category}
           onClick={this.hrefInfo.bind(this)}
         >
+          <View className='item-content'>序号:{index}</View>
           <View className='item-content'>称呼:{work.name}</View>
           <View className='item-content'>电话:{work.mobile}</View>
           <View className='item-content'>地址:{work.address}</View>

@@ -41,6 +41,13 @@ export default class ActionButton extends React.Component {
     })
   }
 
+  failure() {
+    let id = this.props.id
+    Taro.navigateTo({
+      url: '/pages/failure/index?id=' + id,
+    })
+  }
+
   assign() {
     let id = this.props.id
     Taro.navigateTo({
@@ -63,6 +70,12 @@ export default class ActionButton extends React.Component {
             onClick={this.fulfill.bind(this)}
           >
             <Text>完成</Text>
+          </AtFab>
+          <AtFab
+            className='fab'
+            onClick={this.failure.bind(this)}
+          >
+            <Text>失败</Text>
           </AtFab>
         </View>
         <View className='at-col at-col__offset-8'>

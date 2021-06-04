@@ -8,6 +8,7 @@ export default {
     'pages/info/index',
     'pages/reserve/index',
     'pages/fulfill/index',
+    'pages/failure/index',
     'pages/assign/index',
     'pages/my/index',
     'pages/share/member',
