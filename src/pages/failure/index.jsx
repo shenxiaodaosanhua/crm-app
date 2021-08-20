@@ -4,7 +4,8 @@ import {
   AtForm,
   AtButton,
   AtTextarea,
-  AtImagePicker
+  AtImagePicker,
+  AtRadio,
 } from 'taro-ui'
 import {
   uploadImage,
@@ -20,6 +21,20 @@ export default class Failure extends React.Component {
     files: [],
     showAddBtn: true,
     fileName: [],
+    failOpt: [
+      { label: '用户原因', value: 1, desc: '用户取消安装、用户改套餐、宽带未到期等' },
+      { label: '装机地址描述不清楚实际无法安装', value: 2,},
+      { label: '系统核查没资源仍然下单', value: 3,},
+      { label: '物业协调及施工受阻', value: 4,},
+      { label: '三化商不装', value: 5,},
+      { label: '无路由', value: 6, desc: '跨马路，所在楼栋、楼层没覆盖'},
+      { label: '资源满', value: 7, },
+      { label: '资源判断查询地址定位不准', value: 8, desc: '超150米等'},
+      { label: '重复工单', value: 9,},
+      { label: '业务受理错误', value: 10,},
+      { label: '无资源', value: 11, desc: '资源不准'},
+    ],
+    failType: 0,
   }
 
   onSubmit() {
@@ -32,6 +47,7 @@ export default class Failure extends React.Component {
       'work_id': params.id,
       remark: this.state.remark,
       fileName: this.state.fileName,
+      'fail_type': this.state.failType,
     }).then(() => {
       Taro.hideLoading()
       Taro.redirectTo({
@@ -50,6 +66,12 @@ export default class Failure extends React.Component {
   handleChange (value) {
     this.setState({
       remark: value
+    })
+  }
+
+  handleOptChange (value) {
+    this.setState({
+      failType: value
     })
   }
 
@@ -125,6 +147,11 @@ export default class Failure extends React.Component {
           maxLength={200}
           placeholder='完成反馈'
           className='input'
+        />
+        <AtRadio
+          options={this.state.failOpt}
+          value={this.state.failType}
+          onClick={this.handleOptChange.bind(this)}
         />
         <AtImagePicker
           count={1}

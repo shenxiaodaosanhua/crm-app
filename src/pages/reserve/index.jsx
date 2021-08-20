@@ -10,6 +10,7 @@ import {
   AtCalendar,
   AtList,
   AtListItem,
+  AtTextarea,
 } from 'taro-ui'
 import {
   reserve
@@ -22,6 +23,7 @@ export default class Reserve extends React.Component {
   state = {
     timeSel: '00:00',
     day: '',
+    remark: '',
   }
 
   onTimeChange = e => {
@@ -33,6 +35,13 @@ export default class Reserve extends React.Component {
   onDate = date => {
     this.setState({
       day: date.value
+    })
+  }
+
+  handleRemarkChange = e => {
+    console.log(e)
+    this.setState({
+      remark: e,
     })
   }
 
@@ -53,7 +62,8 @@ export default class Reserve extends React.Component {
     })
     reserve({
       'work_id': params.id,
-      'date': day + ' ' + time
+      'date': day + ' ' + time,
+      'remark': this.state.remark,
     }).then(() => {
       Taro.hideLoading()
       Taro.redirectTo({
@@ -88,6 +98,12 @@ export default class Reserve extends React.Component {
               <AtListItem title='请选择时间' extraText={this.state.timeSel}  />
             </AtList>
           </Picker>
+          <AtTextarea
+            value={this.state.remark}
+            onChange={this.handleRemarkChange}
+            maxLength={200}
+            placeholder='备注内容...'
+          />
           <AtButton onClick={this.onSubmit.bind(this)} >提交</AtButton>
         </AtForm>
       </View>

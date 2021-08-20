@@ -44,20 +44,24 @@ export default class Info extends React.Component {
           <View className='at-col value'>{work.address}</View>
         </View>
         <View className='at-row info-list'>
+          <View className='at-col at-col-3 at-col--auto key'>预约时间:</View>
+          <View className='at-col value'>{work.reserve_at}</View>
+        </View>
+        <View className='at-row info-list'>
+          <View className='at-col at-col-3 at-col--auto key'>超时时间:</View>
+          <View className='at-col value'>{work.finished_at}</View>
+        </View>
+        <View className='at-row info-list'>
+          <View className='at-col at-col-3 at-col--auto key'>生成时间:</View>
+          <View className='at-col value'>{work.created_at}</View>
+        </View>
+        <View className='at-row info-list'>
           <View className='at-col at-col-3 at-col--auto key'>状态:</View>
           <View className='at-col value'>{work.state}</View>
         </View>
         <View className='at-row info-list'>
           <View className='at-col at-col-3 at-col--auto key'>地区:</View>
           <View className='at-col value'>{work.area}</View>
-        </View>
-        <View className='at-row info-list'>
-          <View className='at-col at-col-3 at-col--auto key'>预约时间:</View>
-          <View className='at-col value'>{work.reserve_at}</View>
-        </View>
-        <View className='at-row info-list'>
-          <View className='at-col at-col-3 at-col--auto key'>预计完成时间:</View>
-          <View className='at-col value'>{work.finished_at}</View>
         </View>
         <View className='at-row info-list'>
           <View className='at-col at-col-3 at-col--auto key'>实际完成时间:</View>

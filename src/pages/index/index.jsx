@@ -3,6 +3,7 @@ import React, {
 } from 'react'
 import Taro from '@tarojs/taro'
 import { View } from '@tarojs/components'
+import { AtButton } from 'taro-ui'
 import {
   getWorksData,
   getMy,
@@ -16,15 +17,23 @@ export default class Index extends Component {
   state = {
     data: [],
     user: null,
+    orderKey: 'created_at',
+    direction: 'desc',
   }
 
   componentDidMount () {
-    getWorksData().then(result => {
+    getWorksData({
+      key: this.state.orderKey,
+      direction: this.state.direction,
+    }).then(result => {
       this.setState({
         data: result.data,
       })
     }).catch(error => {
-      console.log(error)
+      Taro.showToast({
+        title: error.data.message,
+        duration: 2000
+      })
     })
 
     getMy().then(result => {
@@ -34,7 +43,35 @@ export default class Index extends Component {
         user: member,
       })
     }).catch(error => {
-      console.log(error)
+      Taro.showToast({
+        title: error.data.message,
+        duration: 2000
+      })
+    })
+  }
+
+  getWorkDataOrder(key) {
+    let direction
+    if (this.state.orderKey == key && this.state.direction == 'asc') {
+      direction = 'desc'
+    } else {
+      direction = 'asc'
+    }
+
+    getWorksData({
+      key: key,
+      direction: direction,
+    }).then(result => {
+      this.setState({
+        data: result.data,
+        orderKey: key,
+        direction: direction
+      })
+    }).catch(error => {
+      Taro.showToast({
+        title: error.data.message,
+        duration: 2000
+      })
     })
   }
 
@@ -51,6 +88,11 @@ export default class Index extends Component {
 
     return (
       <View className='warp'>
+        <View className='at-row'>
+          <AtButton className='at-col' onClick={this.getWorkDataOrder.bind(this, "created_at")}>创建时间</AtButton>
+          <AtButton className='at-col' onClick={this.getWorkDataOrder.bind(this, "reserve_at")}>预约时间</AtButton>
+          <AtButton className='at-col' onClick={this.getWorkDataOrder.bind(this, "finished_at")}>超时时间</AtButton>
+        </View>
         {
           works.map((item, index) => <Work item={item} itemId={index} />)
         }
