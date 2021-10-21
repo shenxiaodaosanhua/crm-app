@@ -38,7 +38,6 @@ export default class Work extends Component {
           <View className='item-content'>接单人:{work.user_name}</View>
           <View className='item-content'>预约时间:{work.reserve_at}</View>
           <View className='item-content'>超时时间:{work.finished_at}</View>
-          <View className='item-content'>生成时间:{work.created_at}</View>
         </AtCard>
       </View>
     )
